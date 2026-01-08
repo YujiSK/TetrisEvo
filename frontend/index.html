@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tetris AI</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #e0e0e0;
+    }
+
+    #app {
+      display: flex;
+      gap: 24px;
+      padding: 24px;
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 16px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    #game-canvas {
+      display: block;
+      border-radius: 8px;
+      box-shadow: 0 0 30px rgba(0, 200, 255, 0.2);
+    }
+
+    .side-panel {
+      width: 160px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    h3 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #888;
+      margin-bottom: 8px;
+    }
+
+    .preview-canvas {
+      display: block;
+      margin: 0 auto;
+    }
+
+    .stat {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .stat-label {
+      color: #888;
+      font-size: 12px;
+    }
+
+    .stat-value {
+      font-weight: bold;
+      font-size: 14px;
+      color: #00d4ff;
+    }
+
+    #controls {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    button {
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+    }
+
+    button.active {
+      background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+    }
+
+    #status {
+      font-size: 11px;
+      color: #666;
+      text-align: center;
+      padding: 8px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+    }
+
+    .auto-indicator {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+
+    .auto-indicator.on {
+      background: #00ff88;
+      box-shadow: 0 0 10px #00ff88;
+    }
+
+    .auto-indicator.off {
+      background: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="side-panel">
+      <div class="panel">
+        <h3>Hold</h3>
+        <canvas id="hold-canvas" class="preview-canvas" width="80" height="60"></canvas>
+      </div>
+      <div class="panel">
+        <h3>Next</h3>
+        <canvas id="next-canvas" class="preview-canvas" width="80" height="180"></canvas>
+      </div>
+    </div>
+
+    <div class="panel">
+      <canvas id="game-canvas" width="300" height="600"></canvas>
+    </div>
+
+    <div class="side-panel">
+      <div class="panel">
+        <h3>Stats</h3>
+        <div class="stat">
+          <span class="stat-label">Score</span>
+          <span class="stat-value" id="score">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Lines</span>
+          <span class="stat-value" id="lines">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Pieces</span>
+          <span class="stat-value" id="pieces">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Tetris</span>
+          <span class="stat-value" id="tetris">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Games</span>
+          <span class="stat-value" id="games">0</span>
+        </div>
+      </div>
+
+      <div class="panel" id="controls">
+        <button id="auto-btn">
+          <span class="auto-indicator off"></span>
+          Auto Start
+        </button>
+        <button id="reset-btn">Reset</button>
+      </div>
+
+      <div class="panel">
+        <div id="status">
+          Weights: <span id="weights-hash">default</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+{
+    "linesCleared": 0.2,
+    "holes": -0.60,
+    "aggregateHeight": -0.40,
+    "bumpiness": -0.10,
+    "maxHeight": -0.20,
+    "wells": 0.0,
+    "tetrisReady": 0.50,
+    "tetrisBonus": 5.0
+}
