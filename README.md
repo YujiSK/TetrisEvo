@@ -166,7 +166,3 @@ TrainerConfig(
 ### 重みが更新されない
 - `server.py` のログ確認
 - `backend/weights/weights.json` が存在するか確認
-
-## 📄 ライセンス
-
-MIT
